@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Xml;
 using MyNeuralNetwork.Enums;
 using MyNeuralNetwork.Models;
@@ -46,10 +47,10 @@ namespace MyNeuralNetwork.Layers
         {
             double[,] weights = new double[NeuronsCount, PrevLayerNeuronsCount];
 
-            Console.WriteLine($"{type} weights are being initialized...");
+            Console.WriteLine($"{type} layer weights are being initialized...");
             XmlDocument memoryDoc = new XmlDocument();
 
-            memoryDoc.Load($"{type}_memory.xml");
+            memoryDoc.Load(Path.Combine("../../../", Path.Combine("Memory", $"{type}_memory.xml")));
             XmlElement memoryEl = memoryDoc.DocumentElement;
             switch (memoryMode)
             {
@@ -65,7 +66,7 @@ namespace MyNeuralNetwork.Layers
                     break;
             }
             memoryDoc.Save($"{type}_memory.xml");
-            Console.WriteLine($"{type} weights have been initialized...");
+            Console.WriteLine($"{type} layer weights have been initialized...");
             return weights;
         }
 

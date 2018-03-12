@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MyNeuralNetwork/MyNeuralNetwork/bin/Debug/netcoreapp2.0
+/MyNeuralNetwork/.vs/MyNeuralNetwork/v15
+/MyNeuralNetwork/MyNeuralNetwork/obj

@@ -10,5 +10,9 @@
             Val1 = val1;
             Val2 = val2;
         }
+
+        public double[] ToDoubles() => new[] {Val1, Val2};
+
+        public int ArgsCount = 2;
     }
 }

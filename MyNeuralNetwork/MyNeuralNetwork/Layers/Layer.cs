@@ -13,6 +13,7 @@ namespace MyNeuralNetwork.Layers
             NeuronsCount = neuronsCount;
             PrevLayerNeuronsCount = prevLayerNeuronsCount;
             Neurons = new Neuron[neuronsCount];
+            NeuronType = neuronType;
 
             double[,] weights = WeightInitialize(MemoryModes.Get, neuronType);
 
@@ -28,6 +29,7 @@ namespace MyNeuralNetwork.Layers
         protected int NeuronsCount;
         protected int PrevLayerNeuronsCount;
         protected const double LearningRate = 0.1d;
+        protected NeuronTypes NeuronType;
 
         public Neuron[] Neurons { get; set; }
 
@@ -67,7 +69,32 @@ namespace MyNeuralNetwork.Layers
             return weights;
         }
 
-        //abstract public void Recognize(Network net, Layer nextLayer);
-        public abstract double[] BackwardPass(double[] stuff);
+        protected void AdjustWeights(double[] grSums)
+        {
+            for (var i = 0; i < NeuronsCount; ++i)
+            {
+                double error = 0;
+                double gSum = 0;
+
+                if (NeuronType == NeuronTypes.Hidden)
+                {
+                    gSum = grSums[i];
+                }
+                else if (NeuronType == NeuronTypes.Output)
+                {
+                    error = grSums[i];
+                }
+
+                for (var n = 0; n < PrevLayerNeuronsCount; ++n)
+                {
+                    Neurons[i].Weights[n] += LearningRate * Neurons[i].Inputs[n] *
+                                             Neurons[i].Gradientor(error, Neurons[i].Derivativator(Neurons[i].Output),
+                                                 gSum);
+                }
+            }
+        }
+
+        public abstract void Recognize(Network net, Layer nextLayer);
+        public abstract double[] BackwardPass(double[] grSums);
     }
 }

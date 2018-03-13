@@ -6,28 +6,19 @@ namespace MyNeuralNetwork.Models
     class Neuron
     {
         private readonly NeuronTypes _type;
-        private double[] _weights;
-        private double[] _inputs;
 
         public Neuron(double[] inputs, double[] weights, NeuronTypes type)
         {
             _type = type;
-            _weights = weights;
-            _inputs = inputs;
+            Weights = weights;
+            Inputs = inputs;
         }
 
-        public double[] Weights
-        {
-            get => _weights;
-            set => _weights = value;
-        }
+        public double[] Weights { get; set; }
 
-        public double[] Inputs
-        {
-            get => _inputs;
-            set => _inputs = value;
-        }
-        public double Output => Activator(_inputs, _weights);
+        public double[] Inputs { get; set; }
+
+        public double Output => Activator(Inputs, Weights);
 
         private static double Activator(double[] i, double[] w)
         {

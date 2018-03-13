@@ -16,12 +16,12 @@ namespace MyNeuralNetwork.Layers
             Neurons = new Neuron[neuronsCount];
             NeuronType = neuronType;
 
-            double[,] weights = WeightInitialize(MemoryModes.Get);
+            var weights = WeightInitialize(MemoryModes.Get);
 
-            for (int i = 0; i < neuronsCount; ++i)
+            for (var i = 0; i < neuronsCount; ++i)
             {
-                double[] tempWeights = new double[prevLayerNeuronsCount];
-                for (int j = 0; j < prevLayerNeuronsCount; ++j)
+                var tempWeights = new double[prevLayerNeuronsCount];
+                for (var j = 0; j < prevLayerNeuronsCount; ++j)
                     tempWeights[j] = weights[i, j];
 
                 Neurons[i] = new Neuron(null, tempWeights, neuronType);
@@ -45,13 +45,13 @@ namespace MyNeuralNetwork.Layers
 
         public double[,] WeightInitialize(MemoryModes memoryMode)
         {
-            double[,] weights = new double[NeuronsCount, PrevLayerNeuronsCount];
+            var weights = new double[NeuronsCount, PrevLayerNeuronsCount];
 
             Console.WriteLine($"{NeuronType} layer weights are being initialized...");
-            XmlDocument memoryDoc = new XmlDocument();
+            var memoryDoc = new XmlDocument();
 
             memoryDoc.Load(Path.Combine("../../../", Path.Combine("Memory", $"{NeuronType}_memory.xml")));
-            XmlElement memoryEl = memoryDoc.DocumentElement;
+            var memoryEl = memoryDoc.DocumentElement;
             switch (memoryMode)
             {
                 case MemoryModes.Get:

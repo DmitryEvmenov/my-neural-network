@@ -33,7 +33,7 @@ namespace MyNeuralNetwork.Models
         {
             double sum = 0;
 
-            for (int l = 0; l < i.Length; ++l)
+            for (var l = 0; l < i.Length; ++l)
                 sum += i[l] * w[l];
 
             return Math.Pow(1 + Math.Exp(-sum), -1);

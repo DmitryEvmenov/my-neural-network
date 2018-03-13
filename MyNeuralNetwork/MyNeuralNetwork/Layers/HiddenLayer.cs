@@ -9,9 +9,9 @@ namespace MyNeuralNetwork.Layers
 
         public override void Recognize(Network net, Layer nextLayer)
         {
-            double[] hiddenOut = new double[Neurons.Length];
+            var hiddenOut = new double[Neurons.Length];
 
-            for (int i = 0; i < Neurons.Length; ++i)
+            for (var i = 0; i < Neurons.Length; ++i)
                 hiddenOut[i] = Neurons[i].Output;
 
             nextLayer.Data = hiddenOut;

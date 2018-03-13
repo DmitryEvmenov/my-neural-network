@@ -18,7 +18,7 @@ namespace MyNeuralNetwork
         static void Train(Network net)
         {
             const double threshold = 0.001d;
-            double[] tempMses = new double[4];
+            var tempMses = new double[4];
             double tempCost = 0;
             do
             {
@@ -28,7 +28,7 @@ namespace MyNeuralNetwork
                     net.HiddenLayer.Recognize(null, net.OutputLayer);
                     net.OutputLayer.Recognize(net, null);
 
-                    double[] errors = new double[net._inputLayer.Trainset[i].Item2.OpCount];
+                    var errors = new double[net._inputLayer.Trainset[i].Item2.OpCount];
                     for (var x = 0; x < errors.Length; ++x)
                     {
                         errors[x] = net._inputLayer.Trainset[i].Item2[x] - net.Fact[x];
@@ -36,7 +36,7 @@ namespace MyNeuralNetwork
 
                     tempMses[i] = ErrorCalculator.CalcIterationError(errors);
 
-                    double[] tempGsums = net.OutputLayer.BackwardPass(errors);
+                    var tempGsums = net.OutputLayer.BackwardPass(errors);
                     net.HiddenLayer.BackwardPass(tempGsums);
                 }
                 tempCost = ErrorCalculator.CalcRoundError(tempMses);
@@ -50,13 +50,13 @@ namespace MyNeuralNetwork
 
         static void Test(Network net)
         {
-            for (int i = 0; i < net._inputLayer.Trainset.Length; ++i)
+            for (var i = 0; i < net._inputLayer.Trainset.Length; ++i)
             {
                 net.HiddenLayer.Data = net._inputLayer.Trainset[i].Item1.ToDoubles();
                 net.HiddenLayer.Recognize(null, net.OutputLayer);
                 net.OutputLayer.Recognize(net, null);
 
-                for (int j = 0; j < net.Fact.Length; ++j)
+                for (var j = 0; j < net.Fact.Length; ++j)
                     Console.WriteLine($"{net.Fact[j]}");
 
                 Console.WriteLine();

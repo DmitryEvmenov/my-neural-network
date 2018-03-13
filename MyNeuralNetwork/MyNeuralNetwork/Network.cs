@@ -44,8 +44,8 @@ namespace MyNeuralNetwork
                 Console.WriteLine($"{tempCost}");
             } while (tempCost > threshold);
 
-            net.HiddenLayer.WeightInitialize(MemoryModes.Set, NeuronTypes.Hidden);
-            net.OutputLayer.WeightInitialize(MemoryModes.Set, NeuronTypes.Output);
+            net.HiddenLayer.WeightInitialize(MemoryModes.Set);
+            net.OutputLayer.WeightInitialize(MemoryModes.Set);
         }
 
         static void Test(Network net)

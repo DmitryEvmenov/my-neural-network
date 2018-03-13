@@ -16,7 +16,7 @@ namespace MyNeuralNetwork.Layers
             Neurons = new Neuron[neuronsCount];
             NeuronType = neuronType;
 
-            double[,] weights = WeightInitialize(MemoryModes.Get, neuronType);
+            double[,] weights = WeightInitialize(MemoryModes.Get);
 
             for (int i = 0; i < neuronsCount; ++i)
             {
@@ -43,14 +43,14 @@ namespace MyNeuralNetwork.Layers
             }
         }
 
-        public double[,] WeightInitialize(MemoryModes memoryMode, NeuronTypes type)
+        public double[,] WeightInitialize(MemoryModes memoryMode)
         {
             double[,] weights = new double[NeuronsCount, PrevLayerNeuronsCount];
 
-            Console.WriteLine($"{type} layer weights are being initialized...");
+            Console.WriteLine($"{NeuronType} layer weights are being initialized...");
             XmlDocument memoryDoc = new XmlDocument();
 
-            memoryDoc.Load(Path.Combine("../../../", Path.Combine("Memory", $"{type}_memory.xml")));
+            memoryDoc.Load(Path.Combine("../../../", Path.Combine("Memory", $"{NeuronType}_memory.xml")));
             XmlElement memoryEl = memoryDoc.DocumentElement;
             switch (memoryMode)
             {
@@ -65,8 +65,8 @@ namespace MyNeuralNetwork.Layers
                             memoryEl.ChildNodes.Item(k + PrevLayerNeuronsCount * l).InnerText = Neurons[l].Weights[k].ToString(CultureInfo.InvariantCulture);
                     break;
             }
-            memoryDoc.Save($"{type}_memory.xml");
-            Console.WriteLine($"{type} layer weights have been initialized...");
+            memoryDoc.Save($"{NeuronType}_memory.xml");
+            Console.WriteLine($"{NeuronType} layer weights have been initialized...");
             return weights;
         }
 

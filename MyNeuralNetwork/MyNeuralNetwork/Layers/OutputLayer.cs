@@ -1,4 +1,5 @@
 ﻿using MyNeuralNetwork.Enums;
+using MyNeuralNetwork.Models;
 
 namespace MyNeuralNetwork.Layers
 {

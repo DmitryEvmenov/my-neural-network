@@ -1,19 +1,21 @@
 ﻿using System;
 using MyNeuralNetwork.Enums;
 using MyNeuralNetwork.Helpers;
-using MyNeuralNetwork.Layers;
+using MyNeuralNetwork.Models;
 
 namespace MyNeuralNetwork
 {
-    class Network
+    class Program
     {
-        private readonly InputLayer _inputLayer = new InputLayer();
+        static void Main(string[] args)
+        {
+            var net = new Network();
 
-        public HiddenLayer HiddenLayer = new HiddenLayer(4, 2);
-        public OutputLayer OutputLayer = new OutputLayer(2, 4);
+            Train(net);
+            Test(net);
 
-        public double[] Fact = new double[2];
-        
+            Console.ReadKey();
+        }
 
         static void Train(Network net)
         {
@@ -23,16 +25,16 @@ namespace MyNeuralNetwork
             double tempCost = 0;
             do
             {
-                for (var i = 0; i < net._inputLayer.Trainset.Length; ++i)
+                for (var i = 0; i < net.InputLayer.Trainset.Length; ++i)
                 {
-                    net.HiddenLayer.Data = net._inputLayer.Trainset[i].Item1.ToDoubles();
+                    net.HiddenLayer.Data = net.InputLayer.Trainset[i].Item1.ToDoubles();
                     net.HiddenLayer.Recognize(null, net.OutputLayer);
                     net.OutputLayer.Recognize(net, null);
 
-                    var errors = new double[net._inputLayer.Trainset[i].Item2.OpCount];
+                    var errors = new double[net.InputLayer.Trainset[i].Item2.OpCount];
                     for (var x = 0; x < errors.Length; ++x)
                     {
-                        errors[x] = net._inputLayer.Trainset[i].Item2[x] - net.Fact[x];
+                        errors[x] = net.InputLayer.Trainset[i].Item2[x] - net.Fact[x];
                     }
 
                     tempMses[i] = ErrorCalculator.CalcIterationError(errors);
@@ -54,28 +56,18 @@ namespace MyNeuralNetwork
         static void Test(Network net)
         {
             Console.WriteLine("=============Testing===============");
-            for (var i = 0; i < net._inputLayer.Trainset.Length; ++i)
+            for (var i = 0; i < net.InputLayer.Trainset.Length; ++i)
             {
-                net.HiddenLayer.Data = net._inputLayer.Trainset[i].Item1.ToDoubles();
+                net.HiddenLayer.Data = net.InputLayer.Trainset[i].Item1.ToDoubles();
                 net.HiddenLayer.Recognize(null, net.OutputLayer);
                 net.OutputLayer.Recognize(net, null);
 
-                Console.WriteLine($"Expected outcome: {string.Join(", ", net._inputLayer.Trainset[i].Item2.ToDoubles())}");
+                Console.WriteLine($"Expected outcome: {string.Join(", ", net.InputLayer.Trainset[i].Item2.ToDoubles())}");
                 Console.WriteLine($"Actual outcome: {string.Join(", ", net.Fact)}");
                 Console.WriteLine();
             }
 
             Console.WriteLine("=============Testing ended=============");
-        }
-
-        static void Main(string[] args)
-        {
-            var net = new Network();
-
-            Train(net);
-            Test(net);
-
-            Console.ReadKey();
         }
     }
 }

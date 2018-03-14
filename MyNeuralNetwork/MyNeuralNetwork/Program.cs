@@ -34,7 +34,7 @@ namespace MyNeuralNetwork
                     var errors = new double[net.InputLayer.Trainset[i].Item2.OpCount];
                     for (var x = 0; x < errors.Length; ++x)
                     {
-                        errors[x] = net.InputLayer.Trainset[i].Item2[x] - net.Fact[x];
+                        errors[x] = net.InputLayer.Trainset[i].Item2[x] - net.FactResult[x];
                     }
 
                     tempMses[i] = ErrorCalculator.CalcIterationError(errors);
@@ -63,7 +63,7 @@ namespace MyNeuralNetwork
                 net.OutputLayer.Recognize(net, null);
 
                 Console.WriteLine($"Expected outcome: {string.Join(", ", net.InputLayer.Trainset[i].Item2.ToDoubles())}");
-                Console.WriteLine($"Actual outcome: {string.Join(", ", net.Fact)}");
+                Console.WriteLine($"Actual outcome: {string.Join(", ", net.FactResult)}");
                 Console.WriteLine();
             }
 

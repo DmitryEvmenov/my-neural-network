@@ -8,7 +8,11 @@ namespace MyNeuralNetwork.Models
         public HiddenLayer HiddenLayer = new HiddenLayer(4, 2);
         public OutputLayer OutputLayer = new OutputLayer(2, 4);
 
-        public double[] Fact = new double[2];
-       
+        public Network()
+        {
+            FactResult = new double[InputLayer.Trainset[0].Item2.OpCount];
+        }
+
+        public double[] FactResult;
     }
 }

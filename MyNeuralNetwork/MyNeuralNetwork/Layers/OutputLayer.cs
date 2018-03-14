@@ -11,7 +11,7 @@ namespace MyNeuralNetwork.Layers
         public override void Recognize(Network net, Layer nextLayer)
         {
             for (var i = 0; i < Neurons.Length; ++i)
-                net.Fact[i] = Neurons[i].Output;
+                net.FactResult[i] = Neurons[i].Output;
         }
 
         public override double[] BackwardPass(double[] grSums)

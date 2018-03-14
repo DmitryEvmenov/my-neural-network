@@ -1,6 +1,6 @@
 ﻿using MyNeuralNetwork.Models;
 
-namespace MyNeuralNetwork
+namespace MyNeuralNetwork.Layers
 {
     class InputLayer
     {

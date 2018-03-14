@@ -26,7 +26,7 @@ namespace MyNeuralNetwork
             {
                 for (var i = 0; i < net.InputLayer.Trainset.Length; ++i)
                 {
-                    net.HiddenLayer.Data = net.InputLayer.Trainset[i].Item1.ToDoubles();
+                    net.HiddenLayer.SetData(net.InputLayer.Trainset[i].Item1.ToDoubles());
                     net.HiddenLayer.Recognize(null, net.OutputLayer);
                     net.OutputLayer.Recognize(net, null);
 
@@ -57,7 +57,7 @@ namespace MyNeuralNetwork
             Console.WriteLine("=============Testing===============");
             for (var i = 0; i < net.InputLayer.Trainset.Length; ++i)
             {
-                net.HiddenLayer.Data = net.InputLayer.Trainset[i].Item1.ToDoubles();
+                net.HiddenLayer.SetData(net.InputLayer.Trainset[i].Item1.ToDoubles());
                 net.HiddenLayer.Recognize(null, net.OutputLayer);
                 net.OutputLayer.Recognize(net, null);
 

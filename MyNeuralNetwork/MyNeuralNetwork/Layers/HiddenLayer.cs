@@ -15,7 +15,7 @@ namespace MyNeuralNetwork.Layers
             for (var i = 0; i < Neurons.Length; ++i)
                 hiddenOut[i] = Neurons[i].Output;
 
-            nextLayer.Data = hiddenOut;
+            nextLayer.SetData(hiddenOut);
         }
 
         public override double[] BackwardPass(double[] grSums)

@@ -34,13 +34,10 @@ namespace MyNeuralNetwork.Layers
 
         public Neuron[] Neurons { get; set; }
 
-        public double[] Data
+        public void SetData(double[] value)
         {
-            set
-            {
-                foreach (var neuron in Neurons)
-                    neuron.Inputs = value;
-            }
+            foreach (var neuron in Neurons)
+                neuron.Inputs = value;
         }
 
         public double[,] WeightInitialize(MemoryModes memoryMode)

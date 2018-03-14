@@ -17,6 +17,7 @@ namespace MyNeuralNetwork
 
         static void Train(Network net)
         {
+            Console.WriteLine("=======Training Started========");
             const double threshold = 0.001d;
             var tempMses = new double[4];
             double tempCost = 0;
@@ -41,26 +42,30 @@ namespace MyNeuralNetwork
                 }
                 tempCost = ErrorCalculator.CalcRoundError(tempMses);
 
-                Console.WriteLine($"{tempCost}");
+                Console.WriteLine($"Round error: {tempCost}");
             } while (tempCost > threshold);
 
             net.HiddenLayer.WeightInitialize(MemoryModes.Set);
             net.OutputLayer.WeightInitialize(MemoryModes.Set);
+
+            Console.WriteLine("========Training Ended========");
         }
 
         static void Test(Network net)
         {
+            Console.WriteLine("=============Testing===============");
             for (var i = 0; i < net._inputLayer.Trainset.Length; ++i)
             {
                 net.HiddenLayer.Data = net._inputLayer.Trainset[i].Item1.ToDoubles();
                 net.HiddenLayer.Recognize(null, net.OutputLayer);
                 net.OutputLayer.Recognize(net, null);
 
-                for (var j = 0; j < net.Fact.Length; ++j)
-                    Console.WriteLine($"{net.Fact[j]}");
-
+                Console.WriteLine($"Expected outcome: {string.Join(", ", net._inputLayer.Trainset[i].Item2.ToDoubles())}");
+                Console.WriteLine($"Actual outcome: {string.Join(", ", net.Fact)}");
                 Console.WriteLine();
             }
+
+            Console.WriteLine("=============Testing ended=============");
         }
 
         static void Main(string[] args)

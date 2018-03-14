@@ -20,9 +20,8 @@ namespace MyNeuralNetwork
         static void Train(Network net)
         {
             Console.WriteLine("=======Training Started========");
-            const double threshold = 0.001d;
-            var tempMses = new double[4];
-            double tempCost = 0;
+            var iterationError = new double[4];
+            double errorRate = 0;
             do
             {
                 for (var i = 0; i < net.InputLayer.Trainset.Length; ++i)
@@ -37,15 +36,15 @@ namespace MyNeuralNetwork
                         errors[x] = net.InputLayer.Trainset[i].Item2[x] - net.FactResult[x];
                     }
 
-                    tempMses[i] = ErrorCalculator.CalcIterationError(errors);
+                    iterationError[i] = ErrorCalculator.CalcIterationError(errors);
 
                     var tempGsums = net.OutputLayer.BackwardPass(errors);
                     net.HiddenLayer.BackwardPass(tempGsums);
                 }
-                tempCost = ErrorCalculator.CalcRoundError(tempMses);
+                errorRate = ErrorCalculator.CalcRoundError(iterationError);
 
-                Console.WriteLine($"Round error: {tempCost}");
-            } while (tempCost > threshold);
+                Console.WriteLine($"Round error: {errorRate}");
+            } while (errorRate > Network.AllowedErrorRate);
 
             net.HiddenLayer.WeightInitialize(MemoryModes.Set);
             net.OutputLayer.WeightInitialize(MemoryModes.Set);

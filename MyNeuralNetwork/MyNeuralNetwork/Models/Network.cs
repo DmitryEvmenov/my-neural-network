@@ -14,5 +14,7 @@ namespace MyNeuralNetwork.Models
         }
 
         public double[] FactResult;
+
+        public const double AllowedErrorRate = 0.001d;
     }
 }

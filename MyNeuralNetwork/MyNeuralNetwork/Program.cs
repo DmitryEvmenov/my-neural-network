@@ -20,8 +20,8 @@ namespace MyNeuralNetwork
         static void Train(Network net)
         {
             Console.WriteLine("=======Training Started========");
-            var iterationError = new double[4];
-            double errorRate = 0;
+            var iterationError = new double[net.InputLayer.Trainset.Length];
+            double errorRate;
             do
             {
                 for (var i = 0; i < net.InputLayer.Trainset.Length; ++i)

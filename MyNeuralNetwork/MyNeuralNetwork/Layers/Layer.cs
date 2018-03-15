@@ -16,7 +16,7 @@ namespace MyNeuralNetwork.Layers
             Neurons = new Neuron[neuronsCount];
             NeuronType = neuronType;
 
-            var weights = WeightInitialize(MemoryModes.Get);
+            var weights = InitWeights(MemoryModes.Get);
 
             for (var i = 0; i < neuronsCount; ++i)
             {
@@ -40,7 +40,7 @@ namespace MyNeuralNetwork.Layers
                 neuron.Inputs = value;
         }
 
-        public double[,] WeightInitialize(MemoryModes memoryMode)
+        public double[,] InitWeights(MemoryModes memoryMode)
         {
             var weights = new double[NeuronsCount, PrevLayerNeuronsCount];
 

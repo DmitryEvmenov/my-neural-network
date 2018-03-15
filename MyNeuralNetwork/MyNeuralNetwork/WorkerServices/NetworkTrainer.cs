@@ -42,8 +42,8 @@ namespace MyNeuralNetwork.WorkerServices
                 Console.WriteLine($"Round error: {errorRate}");
             } while (errorRate > _allowedErrorRate);
 
-            net.HiddenLayer.WeightInitialize(MemoryModes.Set);
-            net.OutputLayer.WeightInitialize(MemoryModes.Set);
+            net.HiddenLayer.InitWeights(MemoryModes.Set);
+            net.OutputLayer.InitWeights(MemoryModes.Set);
 
             Console.WriteLine("========Training Ended========");
 
